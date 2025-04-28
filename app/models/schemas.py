@@ -3,7 +3,7 @@ from typing import List, Optional, Union
 
 class Attribute(BaseModel):
     key: str
-    value: str
+    value: Union[str, int, float]
     type: str
 
 class EntityInput(BaseModel):

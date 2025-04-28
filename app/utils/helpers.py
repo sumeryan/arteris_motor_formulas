@@ -1,10 +1,15 @@
 from typing import List, Union
 from app.models.schemas import EntityInput
 
+# helpers.py
 def get_attribute_value(entity: EntityInput, key: str) -> Union[float, int, str]:
     for attr in entity.attributes:
         if attr.key == key:
             if attr.type == 'number':
+                # Verifica se o valor já é numérico
+                if isinstance(attr.value, (int, float)):
+                    return attr.value
+                # Converte string para numérico
                 return float(attr.value) if '.' in attr.value else int(attr.value)
             return attr.value
     raise ValueError(f"Attribute '{key}' not found in entity {entity.id}")
